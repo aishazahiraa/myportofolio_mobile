@@ -9,12 +9,13 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP C";
 
   @override
-  Widget build(BuildContext context) {
-    final items = [
-      ItemHomepage("Experience", Icons.work),
-      ItemHomepage("Education", Icons.school),
-      ItemHomepage("More About Me", Icons.person),
-    ];
+  Widget build(BuildContext context) {  
+  final items = [
+    ItemHomepage("Experience", Icons.work, const Color(0xFFF4A7BC)),
+    ItemHomepage("Tambah Experience", Icons.add_circle, const Color(0xFFF8DFA0)),
+    ItemHomepage("Logout", Icons.logout, const Color(0xFFA9D6E5)),
+  ];
+
 
     return Scaffold(
       appBar: AppBar(
@@ -22,14 +23,13 @@ class MyHomePage extends StatelessWidget {
           'MyPortfolio',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.pink,
+        backgroundColor: const Color(0xFFF4A7BC),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InfoCard(title: 'NPM', content: npm),
                 InfoCard(title: 'Name', content: nama),
@@ -98,8 +98,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -110,15 +111,18 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.pinkAccent,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
+        borderRadius: BorderRadius.circular(12),
         onTap: () {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!"),
+                content: Text(
+                  "Kamu telah menekan tombol ${item.name}!",
+                ),
               ),
             );
         },
@@ -141,4 +145,3 @@ class ItemCard extends StatelessWidget {
     );
   }
 }
-
