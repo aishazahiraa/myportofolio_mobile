@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'menu.dart';
+import 'screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Portfolio',
+      title: 'MyPortfolio',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink,
+          seedColor: const Color(0xFFF4A7BC),
         ),
+        useMaterial3: true,
       ),
       home: const MyHomePage(),
     );
