@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import '../screens/menu.dart';
 import '../screens/project_form.dart';
+import '../screens/education_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -16,8 +16,7 @@ class LeftDrawer extends StatelessWidget {
               color: Color(0xFFC98295),
             ),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'My Portfolio',
@@ -41,26 +40,38 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      const MyHomePage(),
+                  builder: (context) => const MyHomePage(),
+                ),
+                (route) => false,
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text('Add Project'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProjectFormPage(),
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(
-              Icons.add_circle_outline,
-            ),
-            title: const Text('Add Project'),
+            leading: const Icon(Icons.school_outlined),
+            title: const Text('Add Education'),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      const ProjectFormPage(),
+                  builder: (context) => const EducationForm(),
                 ),
               );
             },

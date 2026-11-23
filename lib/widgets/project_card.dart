@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import '../screens/menu.dart';
 import '../screens/project_form.dart';
+import '../screens/education_form.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -30,8 +30,14 @@ class ItemCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    const ProjectFormPage(),
+                builder: (context) => const ProjectFormPage(),
+              ),
+            );
+          } else if (item.name == "Add Education") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EducationForm(),
               ),
             );
           }

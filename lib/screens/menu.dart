@@ -23,6 +23,11 @@ class MyHomePage extends StatelessWidget {
         Icons.add_circle,
         const Color(0xFFF8DFA0),
       ),
+            ItemHomepage(
+        "Add Education",
+        Icons.school,
+        const Color(0xFFD9C6ED),
+      ),
       ItemHomepage(
         "Logout",
         Icons.logout,
@@ -42,7 +47,7 @@ class MyHomePage extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -63,7 +68,8 @@ class MyHomePage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             GridView.count(
-              crossAxisCount: 3,
+              crossAxisCount: 2,
+              childAspectRatio: 2.5,
               shrinkWrap: true,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
