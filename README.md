@@ -1,67 +1,207 @@
 
 # MyPortfolio Mobile
 
-Aplikasi portofolio pribadi berbasis Flutter.
+MyPortfolio Mobile merupakan aplikasi portofolio pribadi berbasis Flutter yang dikembangkan untuk memenuhi tugas individu mata kuliah Pemrograman Berbasis Platform.
 
 Nama: Aisha Ibnaty Zahira  
 NPM: 2506624726  
 Kelas: PBP C
 
-## Fitur
+## Fitur Aplikasi
+
 - Menampilkan informasi NPM, nama, dan kelas.
-- Menampilkan tiga tombol menu dengan warna berbeda.
-- Menampilkan SnackBar ketika tombol ditekan.
+- Menampilkan empat kartu menu dengan warna pastel yang berbeda.
+- Menampilkan SnackBar ketika kartu menu ditekan.
+- Menyediakan formulir Tambah Experience.
+- Menyediakan formulir Add Education.
+- Menyediakan navigasi melalui drawer.
+- Melakukan validasi input pada formulir Education.
+- Menampilkan ringkasan data Education melalui AlertDialog.
+- Menyediakan tampilan formulir yang dapat digulir pada layar berukuran kecil.
 
-## Cara Menjalankan
+Pada tahap ini, data Education ditampilkan melalui dialog dan belum disimpan secara permanen ke database. Kartu Experience dan Logout masih menampilkan SnackBar.
+
+## Cara Menjalankan Aplikasi
+
 1. Pastikan Flutter SDK sudah terpasang.
-2. Jalankan `flutter pub get`.
-3. Jalankan `flutter run`.
-4. Gunakan `flutter analyze` untuk memeriksa kode.
+2. Buka terminal pada direktori utama proyek.
+3. Jalankan `flutter pub get` untuk memasang dependencies.
+4. Jalankan `flutter run -d chrome` untuk membuka aplikasi melalui Chrome.
+5. Apabila terdapat kendala pada mode debug, jalankan `flutter run -d chrome --release`.
+6. Jalankan `flutter analyze` untuk memeriksa kode.
+7. Jalankan `flutter test` untuk menjalankan pengujian widget.
 
-### Tugas 7
+## Struktur Kode
 
-1. **Apa itu widget tree?**
+- `lib/main.dart`: konfigurasi utama aplikasi.
+- `lib/screens/menu.dart`: halaman utama aplikasi.
+- `lib/screens/project_form.dart`: halaman formulir Tambah Experience.
+- `lib/screens/education_form.dart`: halaman formulir Add Education.
+- `lib/widgets/project_card.dart`: komponen kartu menu.
+- `lib/widgets/left_drawer.dart`: komponen navigasi drawer.
+- `test/widget_test.dart`: pengujian widget halaman utama.
 
-   Widget tree adalah susunan widget yang membentuk tampilan aplikasi Flutter. Hubungan parent-child berarti widget induk dapat memiliki widget anak di dalamnya. Contohnya, Scaffold menjadi parent dari Column yang berisi Row dan Text.
+## Tugas 7
 
-2. **Widget yang digunakan dan fungsinya**
+Pada Tugas 7, saya membuat halaman utama aplikasi portofolio menggunakan Flutter. Halaman tersebut menampilkan informasi pribadi, kartu menu, tema warna, dan SnackBar sebagai respons ketika pengguna menekan kartu.
 
-   MaterialApp digunakan sebagai dasar aplikasi, Scaffold untuk struktur halaman, AppBar untuk bagian atas, Text untuk tulisan, Column dan Row untuk mengatur posisi widget, Padding untuk jarak, SizedBox untuk spasi, Card untuk kartu informasi, Expanded untuk membagi ruang, GridView untuk menyusun menu, Material dan InkWell untuk tombol, Icon untuk ikon, serta SnackBar untuk menampilkan pesan. StatelessWidget digunakan untuk membuat widget yang tidak memiliki state yang berubah.
+### Pertanyaan Reflektif
 
-3. **Fungsi MaterialApp**
+1. **Apa itu widget tree? Jelaskan hubungan parent dan child pada widget.**
 
-   MaterialApp merupakan widget utama yang menyediakan pengaturan dasar aplikasi, seperti tema, navigasi, dan tampilan Material Design. Widget ini biasanya digunakan sebagai root karena memudahkan pengaturan keseluruhan aplikasi.
+   Widget tree adalah susunan widget yang membentuk tampilan aplikasi Flutter. Hubungan parent-child berarti widget induk dapat memiliki widget anak di dalamnya. Contohnya, Scaffold memiliki Column pada bagian body, sedangkan Column dapat memiliki beberapa widget anak seperti Row dan Text.
 
-4. **Perbedaan StatelessWidget dan StatefulWidget**
+2. **Apa saja widget yang digunakan dan apa fungsinya?**
 
-   StatelessWidget digunakan ketika tampilan tidak membutuhkan perubahan state internal, contohnya kartu informasi profil. StatefulWidget digunakan ketika tampilan perlu berubah berdasarkan interaksi pengguna, misalnya penghitung angka atau checkbox.
+   MaterialApp digunakan sebagai dasar aplikasi, Scaffold sebagai kerangka halaman, AppBar untuk menampilkan judul, dan Text untuk menampilkan tulisan. Column dan Row digunakan untuk mengatur posisi widget secara vertikal dan horizontal.
+
+   Padding digunakan untuk memberikan jarak, SizedBox untuk memberikan spasi, Card untuk menampilkan informasi, Expanded untuk membagi ruang, dan GridView untuk menyusun kartu menu. Material dan InkWell digunakan untuk membuat kartu yang dapat ditekan, Icon untuk menampilkan ikon, serta SnackBar untuk menampilkan pesan kepada pengguna.
+
+3. **Apa fungsi MaterialApp?**
+
+   MaterialApp merupakan widget yang menyediakan pengaturan dasar aplikasi, seperti tema, navigasi, dan tampilan Material Design. MaterialApp biasanya digunakan sebagai root widget karena memudahkan pengaturan aplikasi secara keseluruhan.
+
+4. **Apa perbedaan StatelessWidget dan StatefulWidget?**
+
+   StatelessWidget digunakan ketika widget tidak membutuhkan perubahan state internal, contohnya kartu informasi profil. StatefulWidget digunakan ketika widget perlu menyimpan atau mengelola state yang dapat berubah berdasarkan interaksi pengguna, misalnya penghitung angka, checkbox, atau formulir.
 
 5. **Apa itu BuildContext?**
 
-   BuildContext menunjukkan posisi suatu widget dalam widget tree. BuildContext digunakan untuk mengakses informasi atau fitur dari widget induk, misalnya ScaffoldMessenger.of(context) untuk menampilkan SnackBar.
+   BuildContext menunjukkan posisi suatu widget dalam widget tree. BuildContext dapat digunakan untuk mengakses informasi atau fitur dari widget induk, misalnya ScaffoldMessenger.of(context) untuk menampilkan SnackBar dan Navigator.of(context) untuk melakukan navigasi.
 
-6. **Perbedaan hot reload dan hot restart**
+6. **Apa perbedaan hot reload dan hot restart?**
 
-   Hot reload memperbarui perubahan kode tanpa menghapus state aplikasi yang sedang berjalan. Hot restart menjalankan ulang aplikasi dari awal sehingga state direset. Hot restart diperlukan ketika perubahan tidak diterapkan dengan hot reload, misalnya perubahan inisialisasi state. Full restart diperlukan untuk perubahan tertentu pada konfigurasi atau kode native.
+   Hot reload memperbarui perubahan kode tanpa menghapus state aplikasi yang sedang berjalan. Hot restart menjalankan ulang aplikasi dari awal sehingga state akan direset.
 
-## Deklarasi Penggunaan AI
+   Hot restart diperlukan ketika perubahan tertentu tidak dapat diterapkan melalui hot reload, misalnya perubahan pada inisialisasi state. Sementara itu, full restart diperlukan untuk perubahan tertentu pada konfigurasi aplikasi atau kode native.
 
-Saya menggunakan ChatGPT sebagai alat bantu untuk memahami instruksi tugas, mempelajari konsep widget Flutter, serta membantu memperbaiki dan merapikan kode. Saya juga menggunakan AI untuk membantu menyusun penjelasan pertanyaan reflektif. Hasil kode diperiksa kembali secara manual dan diuji menggunakan flutter analyze.
+### Deklarasi Penggunaan AI Tugas 7
 
-### Tugas 8
+Saya menggunakan ChatGPT sebagai alat bantu untuk memahami instruksi tugas, mempelajari konsep widget Flutter, serta membantu memperbaiki dan merapikan kode. Saya juga menggunakan AI untuk membantu menyusun penjelasan pertanyaan reflektif.
 
-1. Navigator.push() digunakan untuk membuka halaman baru tanpa menghapus halaman sebelumnya. Navigator.pushReplacement() mengganti halaman saat ini dengan halaman baru, sedangkan Navigator.pop() digunakan untuk kembali ke halaman sebelumnya atau menutup dialog. Pada kartu Add Education, saya menggunakan Navigator.push(). Pada menu Home di drawer, saya menggunakan Navigator.pushAndRemoveUntil() agar kembali ke halaman utama tanpa menumpuk halaman.
+Hasil kode diperiksa kembali secara manual dan diuji menggunakan flutter analyze.
 
-2. Scaffold berfungsi sebagai kerangka halaman, AppBar sebagai bagian judul, dan Drawer sebagai menu navigasi. Ketiganya membuat struktur halaman lebih konsisten. Contohnya, saya menggunakan warna pastel pink pada AppBar halaman utama dan halaman Add Education.
+## Tugas 8
 
-3. Saya menggunakan Column agar input tersusun secara vertikal. SizedBox digunakan untuk memberikan jarak antarinput, sedangkan SingleChildScrollView memungkinkan pengguna menggulir halaman ketika ukuran layar terbatas.
+Pada Tugas 8, saya mengembangkan bagian Education sebagai fitur baru dalam aplikasi portofolio. Bagian ini berbeda dari formulir yang sebelumnya dibuat pada tutorial.
 
-4. GlobalKey<FormState> digunakan untuk mengakses state formulir. Validator memeriksa setiap input, sedangkan validate() menjalankan seluruh validasi ketika tombol Simpan ditekan. Contohnya, tahun masuk 3000 akan ditolak karena melebihi tahun saat ini. Penggunaan keyboard angka saja tidak cukup karena angka yang dimasukkan belum tentu valid.
+Pengembangan dilakukan dengan menambahkan halaman formulir, navigasi melalui kartu menu dan drawer, validasi input, serta dialog yang menampilkan ringkasan data pendidikan.
 
-### AI Disclosure Tugas 8
+### Pertanyaan Reflektif
 
-Saya menggunakan ChatGPT untuk membantu memahami instruksi tugas, membuat formulir Add Education, menambahkan navigasi pada kartu dan drawer, serta menyusun validasi input dan dialog ringkasan.
+1. **Apa perbedaan Navigator.push(), Navigator.pushReplacement(), dan Navigator.pop()?**
 
-Saya memberikan potongan kode yang sudah ada dan screenshot ketika mengalami kendala. ChatGPT juga membantu mencari solusi ketika Chrome menampilkan layar putih dan ketika flutter analyze menemukan masalah pada widget_test.dart.
+   Navigator.push() digunakan untuk membuka halaman baru tanpa menghapus halaman sebelumnya sehingga pengguna masih dapat kembali ke halaman tersebut.
 
-Saya menerapkan perubahan kode dan melakukan pengujian langsung pada aplikasi. Beberapa saran AI masih perlu diperbaiki, seperti ukuran kartu dan penggunaan import pada widget_test.dart.
+   Navigator.pushReplacement() digunakan untuk mengganti halaman yang sedang dibuka dengan halaman baru. Sementara itu, Navigator.pop() digunakan untuk menghapus halaman teratas dari navigation stack atau menutup dialog.
+
+   Pada kartu Add Education, saya menggunakan Navigator.push() agar pengguna dapat membuka formulir tanpa menghapus halaman utama. Pada menu Home di drawer, saya menggunakan Navigator.pop() untuk menutup drawer, kemudian Navigator.pushAndRemoveUntil() untuk kembali ke halaman utama sekaligus menghapus tumpukan halaman sebelumnya.
+
+2. **Apa peran Scaffold, AppBar, dan Drawer dalam membangun antarmuka aplikasi Flutter?**
+
+   Scaffold berfungsi sebagai kerangka halaman yang menyediakan tempat untuk AppBar, Drawer, dan body. AppBar digunakan untuk menampilkan judul halaman, sedangkan Drawer digunakan sebagai menu navigasi.
+
+   Ketiga widget tersebut membantu membuat struktur halaman menjadi lebih teratur dan konsisten. Pada aplikasi ini, saya menggunakan LeftDrawer yang sama pada halaman utama dan halaman Add Education. Saya juga menggunakan warna pastel pink pada AppBar agar tampilan antarmuka tetap konsisten.
+
+3. **Bagaimana cara menentukan layout yang tepat untuk formulir?**
+
+   Saya menggunakan Column karena input formulir lebih mudah dibaca apabila disusun secara vertikal. Padding digunakan untuk memberikan jarak antara isi formulir dan tepi layar, sedangkan SizedBox digunakan untuk memberikan jarak antarinput.
+
+   Saya juga menggunakan SingleChildScrollView agar formulir dapat digulir ketika ruang layar terbatas, misalnya ketika aplikasi dibuka melalui ponsel atau ketika keyboard muncul. Dengan demikian, pengguna tetap dapat mengakses seluruh input dan tombol Simpan.
+
+4. **Apa fungsi GlobalKey<FormState>, validator, dan validate() dalam formulir Flutter?**
+
+   GlobalKey<FormState> digunakan untuk mengakses state dari Form. Setiap TextFormField memiliki validator yang berfungsi untuk memeriksa apakah input memenuhi aturan yang telah ditentukan.
+
+   Ketika tombol Simpan ditekan, validate() menjalankan seluruh validator pada formulir. Apabila terdapat input yang tidak valid, pesan kesalahan akan ditampilkan dan dialog tidak akan muncul. Apabila seluruh input valid, aplikasi akan menampilkan AlertDialog yang berisi ringkasan data pendidikan.
+
+   Sebagai contoh, tahun masuk 3000 akan ditolak karena melebihi tahun saat ini. Nama institusi yang hanya berisi spasi juga akan ditolak dengan menggunakan trim() dan isEmpty.
+
+   Penggunaan keyboard angka saja tidak cukup untuk memastikan input valid karena pengguna masih dapat memasukkan angka yang tidak sesuai dengan rentang tahun yang ditentukan.
+
+### Implementasi Formulir Education
+
+Formulir Education memiliki tiga input, yaitu:
+
+- Nama institusi.
+- Program studi.
+- Tahun masuk.
+
+Nama institusi dan program studi tidak boleh kosong atau hanya berisi spasi. Tahun masuk harus berupa bilangan bulat dengan rentang 1900 sampai tahun saat ini.
+
+Formulir dapat diakses melalui kartu Add Education pada halaman utama dan melalui menu Add Education pada drawer.
+
+Setelah seluruh input memenuhi ketentuan validasi, aplikasi menampilkan AlertDialog yang berisi nama institusi, program studi, dan tahun masuk. Pengguna dapat menekan tombol OK untuk menutup dialog dan kembali ke formulir.
+
+### Pengujian Aplikasi
+
+Pengujian awal dilakukan dengan menjalankan aplikasi melalui Chrome, membuka formulir Add Education, mengisi data pendidikan, menampilkan ringkasan data melalui AlertDialog, dan menutup dialog menggunakan tombol OK.
+
+Tampilan aplikasi juga diperiksa menggunakan simulasi layar ponsel pada Chrome untuk memastikan formulir dapat digunakan pada layar berukuran kecil.
+
+Pada pengujian awal, perintah `flutter analyze` menghasilkan No issues found dan perintah `flutter test` menghasilkan All tests passed.
+
+Skenario pengujian yang digunakan untuk memeriksa fungsionalitas aplikasi meliputi:
+
+- Membuka formulir melalui kartu Add Education.
+- Membuka formulir melalui drawer.
+- Kembali ke halaman utama melalui menu Home.
+- Memeriksa validasi ketika input kosong.
+- Memeriksa validasi ketika input hanya berisi spasi.
+- Memeriksa validasi ketika tahun masuk bukan angka.
+- Memeriksa validasi ketika tahun masuk berada di luar rentang yang ditentukan.
+- Mengisi formulir dengan data yang valid.
+- Memeriksa kesesuaian data pada AlertDialog.
+- Menutup dialog menggunakan tombol OK.
+
+## AI Disclosure Tugas 8
+
+### Tools yang Digunakan
+
+ChatGPT.
+
+### Tujuan Penggunaan AI
+
+Saya menggunakan ChatGPT sebagai alat bantu dalam memahami instruksi tugas, mengembangkan formulir Education, menerapkan validasi input, mengatur navigasi, serta menampilkan ringkasan data melalui AlertDialog.
+
+Selain itu, AI digunakan untuk membantu mengatasi kendala teknis selama pengembangan aplikasi dan menyusun dokumentasi serta jawaban pertanyaan reflektif.
+
+### Strategi Prompting
+
+Saya memberikan instruksi tugas, potongan kode yang sudah dibuat, dan screenshot ketika mengalami kendala. Pertanyaan diberikan secara bertahap agar solusi yang diperoleh sesuai dengan struktur proyek dan tidak menghilangkan fitur yang sebelumnya sudah dibuat.
+
+### Log Prompting
+
+Berikut rangkuman prompt yang digunakan selama proses pengerjaan tugas. Penulisan prompt telah dirapikan agar lebih mudah dipahami tanpa mengubah tujuan penggunaannya.
+
+1. Pelajari instruksi Tugas 8 dan jelaskan tahapan pengerjaan yang perlu dilakukan.
+
+2. Bagaimana cara mengimplementasikan formulir Education pada aplikasi Flutter?
+
+3. Bagaimana cara menghubungkan kartu menu dan drawer dengan halaman formulir Education?
+
+4. Bagaimana cara menerapkan validasi input agar data yang dimasukkan sesuai dengan ketentuan?
+
+5. Bagaimana cara menampilkan ringkasan data formulir menggunakan AlertDialog?
+
+6. Bagaimana cara mengatasi kendala tampilan kosong pada Flutter Web dan kesalahan pada widget test?
+
+7. Bagaimana cara menyesuaikan layout agar tampilan aplikasi tetap rapi pada layar ponsel?
+
+8. Periksa kesesuaian implementasi dan dokumentasi dengan ketentuan Tugas 8.
+
+Prompt tersebut diberikan secara bertahap dengan menyertakan potongan kode dan hasil pengujian agar saran yang diberikan sesuai dengan kondisi proyek.
+
+### Evaluasi dan Keterbatasan AI
+
+Selama pengerjaan tugas, tidak semua saran AI dapat langsung diterapkan. Beberapa saran perlu disesuaikan kembali dengan struktur proyek dan kondisi aplikasi.
+
+Salah satu kendala yang saya alami adalah Chrome menampilkan layar kosong ketika aplikasi dijalankan dalam mode debug. Setelah memeriksa pesan kesalahan pada terminal, aplikasi berhasil dijalankan menggunakan mode release.
+
+Selain itu, layout kartu pada halaman utama perlu disesuaikan agar seluruh menu dapat ditampilkan dengan baik. Penyesuaian dilakukan pada childAspectRatio dan penggunaan SingleChildScrollView.
+
+Pengujian widget juga sempat mengalami kendala karena kode pengujian sebelumnya tidak sesuai dengan struktur aplikasi. Kendala tersebut diperbaiki dengan menyesuaikan widget yang diuji dan memperbaiki import sesuai dengan nama package.
+
+Saya menerapkan perubahan kode dengan bantuan AI, menjalankan aplikasi secara langsung, dan memeriksa kembali hasil implementasinya. Saya juga menggunakan flutter analyze dan flutter test untuk membantu memastikan kode dapat dijalankan dan pengujian widget berhasil.
+
+Penggunaan AI membantu proses pengerjaan menjadi lebih terarah. Namun, hasil yang diberikan tetap perlu dipahami, diperiksa, dan diuji kembali agar sesuai dengan kebutuhan aplikasi dan ketentuan tugas.

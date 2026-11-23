@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+
 import '../widgets/left_drawer.dart';
 import '../widgets/project_card.dart';
 
@@ -13,39 +13,22 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      ItemHomepage(
-        "Experience",
-        Icons.work,
-        const Color(0xFFF4A7BC),
-      ),
+      ItemHomepage("Experience", Icons.work, const Color(0xFFF4A7BC)),
       ItemHomepage(
         "Tambah Experience",
         Icons.add_circle,
         const Color(0xFFF8DFA0),
       ),
-            ItemHomepage(
-        "Add Education",
-        Icons.school,
-        const Color(0xFFD9C6ED),
-      ),
-      ItemHomepage(
-        "Logout",
-        Icons.logout,
-        const Color(0xFFA9D6E5),
-      ),
+      ItemHomepage("Add Education", Icons.school, const Color(0xFFD9C6ED)),
+      ItemHomepage("Logout", Icons.logout, const Color(0xFFA9D6E5)),
     ];
 
     return Scaffold(
       drawer: const LeftDrawer(),
       appBar: AppBar(
-        title: const Text(
-          'MyPortfolio',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('MyPortfolio', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xFFF4A7BC),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -61,21 +44,17 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 24),
             const Text(
               'Welcome to MyPortfolio Mobile!',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: 2.5,
+              childAspectRatio: 1.8,
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
-              children: items
-                  .map((item) => ItemCard(item))
-                  .toList(),
+              children: items.map((item) => ItemCard(item)).toList(),
             ),
           ],
         ),
@@ -88,11 +67,7 @@ class InfoCard extends StatelessWidget {
   final String title;
   final String content;
 
-  const InfoCard({
-    super.key,
-    required this.title,
-    required this.content,
-  });
+  const InfoCard({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +77,7 @@ class InfoCard extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               Text(
                 content,

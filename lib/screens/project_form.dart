@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
+
 import '../widgets/left_drawer.dart';
 
 class ProjectFormPage extends StatefulWidget {
   const ProjectFormPage({super.key});
 
   @override
-  State<ProjectFormPage> createState() =>
-      _ProjectFormPageState();
+  State<ProjectFormPage> createState() => _ProjectFormPageState();
 }
 
 class _ProjectFormPageState extends State<ProjectFormPage> {
@@ -53,8 +52,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                     _projectName = value;
                   },
                   validator: (value) {
-                    if (value == null ||
-                        value.trim().isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return 'Nama proyek tidak boleh kosong!';
                     }
                     return null;
@@ -73,8 +71,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                     _description = value;
                   },
                   validator: (value) {
-                    if (value == null ||
-                        value.trim().isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return 'Deskripsi proyek tidak boleh kosong!';
                     }
                     return null;
@@ -133,8 +130,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                   padding: const EdgeInsets.all(8),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xFFC98295),
+                      backgroundColor: const Color(0xFFC98295),
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
@@ -143,30 +139,17 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text(
-                                'Proyek berhasil ditambahkan!',
-                              ),
+                              title: const Text('Proyek berhasil ditambahkan!'),
                               content: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Nama Proyek: $_projectName',
-                                    ),
-                                    Text(
-                                      'Deskripsi: $_description',
-                                    ),
-                                    Text(
-                                      'Kategori: $_category',
-                                    ),
-                                    Text(
-                                      'Teknologi: $_technologies',
-                                    ),
-                                    Text(
-                                      'Tautan: $_projectLink',
-                                    ),
+                                    Text('Nama Proyek: $_projectName'),
+                                    Text('Deskripsi: $_description'),
+                                    Text('Kategori: $_category'),
+                                    Text('Teknologi: $_technologies'),
+                                    Text('Tautan: $_projectLink'),
                                   ],
                                 ),
                               ),
@@ -174,13 +157,11 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    _formKey.currentState!
-                                        .reset();
+                                    _formKey.currentState!.reset();
                                     setState(() {
                                       _projectName = '';
                                       _description = '';
-                                      _category =
-                                          'Web Development';
+                                      _category = 'Web Development';
                                       _technologies = '';
                                       _projectLink = '';
                                     });

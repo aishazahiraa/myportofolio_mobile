@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../screens/menu.dart';
 import '../screens/project_form.dart';
 import '../screens/education_form.dart';
@@ -20,44 +21,31 @@ class ItemCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(
-                  "Kamu telah menekan tombol ${item.name}!",
-                ),
+                content: Text("Kamu telah menekan tombol ${item.name}!"),
               ),
             );
 
           if (item.name == "Tambah Experience") {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const ProjectFormPage(),
-              ),
+              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
             );
           } else if (item.name == "Add Education") {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const EducationForm(),
-              ),
+              MaterialPageRoute(builder: (context) => const EducationForm()),
             );
           }
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              item.icon,
-              color: Colors.white,
-              size: 30,
-            ),
+            Icon(item.icon, color: Colors.white, size: 30),
             const SizedBox(height: 8),
             Text(
               item.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ],
         ),

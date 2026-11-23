@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../screens/menu.dart';
 import '../screens/project_form.dart';
 import '../screens/education_form.dart';
@@ -12,9 +13,7 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Color(0xFFC98295),
-            ),
+            decoration: BoxDecoration(color: Color(0xFFC98295)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -29,9 +28,7 @@ class LeftDrawer extends StatelessWidget {
                 SizedBox(height: 10),
                 Text(
                   'Explore my projects and experiences!',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
@@ -41,11 +38,10 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
+              // Kembali ke halaman utama dan menghapus tumpukan halaman sebelumnya.
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const MyHomePage(),
-                ),
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
                 (route) => false,
               );
             },
@@ -70,9 +66,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const EducationForm(),
-                ),
+                MaterialPageRoute(builder: (context) => const EducationForm()),
               );
             },
           ),

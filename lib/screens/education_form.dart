@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/left_drawer.dart';
 
 class EducationForm extends StatefulWidget {
@@ -9,6 +10,7 @@ class EducationForm extends StatefulWidget {
 }
 
 class _EducationFormState extends State<EducationForm> {
+  // Key buat mengakses dan memvalidasi seluruh input formulir.
   final _formKey = GlobalKey<FormState>();
 
   String _institution = "";
@@ -76,6 +78,7 @@ class _EducationFormState extends State<EducationForm> {
                     return 'Tahun masuk tidak boleh kosong';
                   }
 
+                  // Memastikan tahun masuk berupa angka dan berada dalam rentang yang valid.
                   final year = int.tryParse(value.trim());
 
                   if (year == null ||
@@ -93,6 +96,7 @@ class _EducationFormState extends State<EducationForm> {
                   foregroundColor: Colors.black,
                 ),
                 onPressed: () {
+                  // Dialog ringkasan hanya ditampilkan jika seluruh input lolos validasi.
                   if (_formKey.currentState!.validate()) {
                     showDialog(
                       context: context,
