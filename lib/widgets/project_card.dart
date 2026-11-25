@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/menu.dart';
 import '../screens/project_form.dart';
 import '../screens/education_form.dart';
+import '../screens/experience_list.dart';
+import '../screens/login.dart';
+import '../services/api_client.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -16,25 +20,49 @@ class ItemCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!"),
-              ),
-            );
+        onTap: () async {
+          final api = context.read<ApiClient>();
 
-          if (item.name == "Tambah Experience") {
+          if (item.name == 'Experience') {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
+              MaterialPageRoute(
+                builder: (context) => const ExperienceListPage(),
+              ),
             );
-          } else if (item.name == "Add Education") {
+          } else if (item.name == 'Tambah Experience') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => api.token == null
+                    ? const LoginPage()
+                    : const ProjectFormPage(),
+              ),
+            );
+          } else if (item.name == 'Add Education') {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const EducationForm()),
             );
+          } else if (item.name == 'Logout') {
+            try {
+              if (api.token != null) {
+                await api.logout();
+              }
+
+              if (!context.mounted) return;
+
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false,
+              );
+            } catch (e) {
+              if (!context.mounted) return;
+
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Logout gagal')));
+            }
           }
         },
         child: Column(

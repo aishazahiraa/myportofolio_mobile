@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'services/api_client.dart';
 import 'screens/menu.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MyPortfolio',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF4A7BC)),
-        useMaterial3: true,
+    Provider<ApiClient>(
+      create: (_) => ApiClient(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'MyPortfolio',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF4A7BC)),
+          useMaterial3: true,
+        ),
+        home: MyHomePage(),
       ),
-      home: const MyHomePage(),
     ),
   );
 }

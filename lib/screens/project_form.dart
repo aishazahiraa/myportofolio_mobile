@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../widgets/left_drawer.dart';
+import '../services/api_client.dart';
 
 class ProjectFormPage extends StatefulWidget {
   const ProjectFormPage({super.key});
@@ -12,174 +13,132 @@ class ProjectFormPage extends StatefulWidget {
 class _ProjectFormPageState extends State<ProjectFormPage> {
   final _formKey = GlobalKey<FormState>();
 
-  String _projectName = '';
+  String _title = '';
   String _description = '';
-  String _category = 'Web Development';
-  String _technologies = '';
-  String _projectLink = '';
+  String _category = 'internship';
+  String _thumbnail = '';
+  bool _isLoading = false;
 
-  final List<String> _categories = [
-    'Web Development',
-    'Mobile Development',
-    'Machine Learning',
-    'Data Science',
-    'Other',
+  final _categories = [
+    'internship',
+    'research',
+    'volunteer',
+    'part-time',
+    'full-time',
+    'freelance',
   ];
+
+  Future<void> saveExperience() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final success = await context.read<ApiClient>().createExperience({
+        'title': _title,
+        'description': _description,
+        'category': _category,
+        'thumbnail': _thumbnail,
+        'started_at': DateTime.now().toIso8601String().split('T').first,
+        'ended_at': null,
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            success
+                ? 'Experience berhasil ditambahkan!'
+                : 'Experience gagal ditambahkan',
+          ),
+        ),
+      );
+
+      if (success) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Gagal terhubung ke server')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFFF0F5),
       appBar: AppBar(
-        title: const Text('Add Project Form'),
-        backgroundColor: const Color(0xFFC98295),
-        foregroundColor: Colors.white,
+        title: const Text('Tambah Experience'),
+        backgroundColor: const Color(0xFFF4A7BC),
       ),
-      drawer: const LeftDrawer(),
       body: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Nama Proyek',
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    _projectName = value;
-                  },
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Nama proyek tidak boleh kosong!';
-                    }
-                    return null;
-                  },
-                ),
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Judul Experience',
+                border: OutlineInputBorder(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                    labelText: 'Deskripsi Proyek',
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    _description = value;
-                  },
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Deskripsi proyek tidak boleh kosong!';
-                    }
-                    return null;
-                  },
-                ),
+              onChanged: (value) => _title = value,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? 'Judul tidak boleh kosong'
+                  : null,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              maxLines: 5,
+              decoration: const InputDecoration(
+                labelText: 'Deskripsi',
+                border: OutlineInputBorder(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: DropdownButtonFormField<String>(
-                  initialValue: _category,
-                  decoration: const InputDecoration(
-                    labelText: 'Kategori Proyek',
-                    border: OutlineInputBorder(),
-                  ),
-                  items: _categories.map((category) {
-                    return DropdownMenuItem(
-                      value: category,
-                      child: Text(category),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _category = value!;
-                    });
-                  },
-                ),
+              onChanged: (value) => _description = value,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? 'Deskripsi tidak boleh kosong'
+                  : null,
+            ),
+            const SizedBox(height: 16),
+            DropdownButtonFormField<String>(
+              initialValue: _category,
+              decoration: const InputDecoration(
+                labelText: 'Kategori',
+                border: OutlineInputBorder(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Teknologi yang Digunakan',
-                    hintText: 'Flutter, Django, Figma',
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    _technologies = value;
-                  },
-                ),
+              items: _categories.map((category) {
+                return DropdownMenuItem(value: category, child: Text(category));
+              }).toList(),
+              onChanged: (value) {
+                setState(() => _category = value!);
+              },
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Thumbnail URL (opsional)',
+                border: OutlineInputBorder(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Tautan Proyek',
-                    hintText: 'URL Proyek (opsional)',
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    _projectLink = value;
-                  },
-                ),
+              onChanged: (value) => _thumbnail = value,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFF4A7BC),
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFC98295),
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Proyek berhasil ditambahkan!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Nama Proyek: $_projectName'),
-                                    Text('Deskripsi: $_description'),
-                                    Text('Kategori: $_category'),
-                                    Text('Teknologi: $_technologies'),
-                                    Text('Tautan: $_projectLink'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                    setState(() {
-                                      _projectName = '';
-                                      _description = '';
-                                      _category = 'Web Development';
-                                      _technologies = '';
-                                      _projectLink = '';
-                                    });
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: const Text('Save'),
-                  ),
-                ),
-              ),
-            ],
-          ),
+              onPressed: _isLoading ? null : saveExperience,
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text('Save'),
+            ),
+          ],
         ),
       ),
     );

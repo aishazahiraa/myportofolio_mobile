@@ -10,16 +10,19 @@ Kelas: PBP C
 ## Fitur Aplikasi
 
 - Menampilkan informasi NPM, nama, dan kelas.
-- Menampilkan empat kartu menu dengan warna pastel yang berbeda.
-- Menampilkan SnackBar ketika kartu menu ditekan.
-- Menyediakan formulir Tambah Experience.
+- Menampilkan empat kartu menu dengan warna pastel.
+- Menampilkan daftar Experience dari database Django.
+- Menambahkan Experience melalui REST API.
+- Melakukan login menggunakan akun Django.
+- Menggunakan token authentication untuk autentikasi.
+- Menyediakan fitur logout.
 - Menyediakan formulir Add Education.
 - Menyediakan navigasi melalui drawer.
-- Melakukan validasi input pada formulir Education.
-- Menampilkan ringkasan data Education melalui AlertDialog.
-- Menyediakan tampilan formulir yang dapat digulir pada layar berukuran kecil.
+- Melakukan validasi input pada formulir.
 
-Pada tahap ini, data Education ditampilkan melalui dialog dan belum disimpan secara permanen ke database. Kartu Experience dan Logout masih menampilkan SnackBar.
+Data Experience terhubung dengan database Django,
+sedangkan data Education masih ditampilkan melalui
+AlertDialog dan belum disimpan ke database.
 
 ## Cara Menjalankan Aplikasi
 
@@ -205,3 +208,104 @@ Pengujian widget juga sempat mengalami kendala karena kode pengujian sebelumnya 
 Saya menerapkan perubahan kode dengan bantuan AI, menjalankan aplikasi secara langsung, dan memeriksa kembali hasil implementasinya. Saya juga menggunakan flutter analyze dan flutter test untuk membantu memastikan kode dapat dijalankan dan pengujian widget berhasil.
 
 Penggunaan AI membantu proses pengerjaan menjadi lebih terarah. Namun, hasil yang diberikan tetap perlu dipahami, diperiksa, dan diuji kembali agar sesuai dengan kebutuhan aplikasi dan ketentuan tugas.
+
+## Tugas 9
+
+Pada Tugas 9, saya mengintegrasikan aplikasi
+MyPortfolio Mobile dengan backend Django menggunakan
+REST API. Integrasi ini memungkinkan aplikasi
+mengambil dan menambahkan data Experience serta
+melakukan autentikasi pengguna.
+
+### Implementasi
+
+- Menggunakan package http untuk mengirim HTTP request.
+- Menggunakan Provider untuk menyediakan ApiClient.
+- Membuat model Experience berdasarkan respons JSON.
+- Menggunakan json_serializable untuk konversi data JSON.
+- Mengimplementasikan login dan logout menggunakan token.
+- Menampilkan daftar Experience menggunakan FutureBuilder.
+- Menghubungkan formulir Tambah Experience dengan Django.
+- Menyesuaikan navigasi pada kartu menu dan drawer.
+
+### Endpoint API
+
+| Method | Endpoint | Fungsi |
+| --- | --- | --- |
+| GET | /api/v1/experiences/ | Mengambil data Experience |
+| POST | /api/v1/experiences/ | Menambahkan Experience |
+| POST | /api/v1/auth/token/ | Login dan memperoleh token |
+| POST | /api/v1/auth/logout/ | Logout |
+
+### Pengujian
+
+Pengujian dilakukan dengan menjalankan backend Django
+dan aplikasi Flutter secara lokal.
+
+Hasil pengujian:
+
+- Daftar Experience berhasil ditampilkan.
+- Login berhasil dilakukan.
+- Data Experience baru berhasil ditambahkan.
+- Logout berhasil dilakukan.
+- Flutter analyze menghasilkan No issues found.
+- Flutter build web berhasil dilakukan.
+
+### Kendala dan Solusi
+
+Selama pengembangan, aplikasi sempat menampilkan
+layar kosong ketika dijalankan melalui Chrome dalam
+mode debug. Kendala tersebut diatasi dengan melakukan
+build web dan menjalankan hasil build menggunakan
+HTTP server lokal.
+
+Selain itu, aplikasi sempat gagal mengambil data
+karena alamat backend menggunakan alamat Android
+Emulator. Alamat backend kemudian disesuaikan menjadi
+127.0.0.1 agar dapat diakses melalui browser.
+
+## AI Disclosure Tutorial 10
+
+### Tools yang Digunakan
+
+ChatGPT.
+
+### Tujuan Penggunaan AI
+
+Saya menggunakan ChatGPT untuk membantu memahami
+integrasi Flutter dengan Django REST API, menyusun
+kode autentikasi, mengimplementasikan model data,
+menghubungkan formulir dengan backend, serta
+mengatasi kendala selama pengembangan aplikasi.
+
+### Strategi Prompting
+
+Saya memberikan potongan kode, instruksi tugas,
+pesan kesalahan, dan screenshot hasil pengujian
+secara bertahap agar solusi sesuai dengan struktur
+proyek yang digunakan.
+
+### Log Prompting
+
+Berikut rangkuman prompt yang digunakan:
+
+1. Jelaskan tahapan integrasi Flutter dengan backend Django.
+2. Bantu implementasikan model Experience berdasarkan JSON.
+3. Bantu mengimplementasikan API Client dan autentikasi token.
+4. Bagaimana cara menghubungkan halaman Experience dengan API?
+5. Bagaimana cara menyimpan data formulir ke backend Django?
+6. Bagaimana cara mengatasi layar kosong pada Flutter Web?
+7. Bagaimana cara mengatasi kegagalan pengambilan data API?
+8. Bantu menyusun dokumentasi hasil implementasi dan pengujian.
+
+### Evaluasi dan Keterbatasan AI
+
+Beberapa solusi yang diberikan AI perlu disesuaikan
+dengan struktur proyek dan konfigurasi perangkat.
+Kendala yang ditemukan selama pengerjaan diperiksa
+melalui terminal, browser, dan respons API Django.
+
+Kode yang dihasilkan dengan bantuan AI diterapkan
+dan diuji secara langsung. Pengujian dilakukan untuk
+memastikan fitur login, logout, pengambilan data,
+dan penambahan Experience dapat berjalan.
